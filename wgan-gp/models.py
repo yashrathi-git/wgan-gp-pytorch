@@ -92,3 +92,9 @@ class Critic(nn.Module):
         out = out.view(x.size(0), -1)
         out = self.final_fc(out)
         return out
+
+
+def weights_init(m):
+    # Use mode.apply(weights_init) to initialize weights
+    if isinstance(m, (nn.Conv2d, nn.ConvTranspose2d, nn.BatchNorm2d)):
+        nn.init.normal_(m.weight, 0.0, 0.02)
