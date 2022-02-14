@@ -66,7 +66,7 @@ class Trainer:
         for _ in range(crit_rep):
             z = self.generator.sample_noise_vector(bs).to(self.device)
             fake = self.generator(z)
-            crit_real_scores = self.critic(fake)
+            crit_real_scores = self.critic(real_img)
             crit_fake_scores = self.critic(fake.detach())
             epsilon = torch.rand(bs, 1, 1, 1, requires_grad=True).to(self.device)
             gp = self._calc_grad_penalty(real_img, fake.detach(), epsilon)
