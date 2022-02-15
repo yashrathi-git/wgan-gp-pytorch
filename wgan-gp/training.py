@@ -180,3 +180,27 @@ class Trainer:
         fake = self.generator(noise)
         tensor_image_grid(fake, num_images, nrow, save_path)
         return fake
+
+    def save_state(self, save_path):
+        torch.save(
+            {
+                "step": self.step,
+                "gen_state_dict": self.generator.state_dict(),
+                "crit_state_dict": self.critic.state_dict(),
+                "optim_gen_state_dict": self.optim_gen.state_dict(),
+                "optim_crit_state_dict": self.optim_critic.state_dict(),
+                "gen_losses": self.gen_losses,
+                "crit_losses": self.crit_losses,
+            },
+            save_path,
+        )
+
+    def load_state(self, save_path):
+        state = torch.load(save_path)
+        self.step = state["step"]
+        self.generator.load_state_dict(state["gen_state_dict"])
+        self.critic.load_state_dict(state["crit_state_dict"])
+        self.optim_gen.load_state_dict(state["optim_gen_state_dict"])
+        self.optim_critic.load_state_dict(state["optim_critic_state_dict"])
+        self.gen_losses = state["gen_losses"]
+        self.crit_losses = state["crit_losses"]
