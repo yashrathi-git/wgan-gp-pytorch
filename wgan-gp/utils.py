@@ -9,6 +9,7 @@ def tensor_image_grid(img_tensor, n_images=25, nrow=5, save_image_path=None):
     img_grid = make_grid(img_tensor[:n_images], nrow=nrow)
     # Move n_C to the end
     img_grid = torch.moveaxis(img_grid, 0, -1)
+    plt.axis("off")
     plt.imshow(torch.squeeze(img_grid))
 
     if save_image_path is not None:
