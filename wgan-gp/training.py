@@ -196,11 +196,11 @@ class Trainer:
         )
 
     def load_state(self, save_path):
-        state = torch.load(save_path)
+        state = torch.load(save_path, map_location=self.device)
         self.step = state["step"]
         self.generator.load_state_dict(state["gen_state_dict"])
         self.critic.load_state_dict(state["crit_state_dict"])
         self.optim_gen.load_state_dict(state["optim_gen_state_dict"])
-        self.optim_critic.load_state_dict(state["optim_critic_state_dict"])
+        self.optim_critic.load_state_dict(state["optim_crit_state_dict"])
         self.gen_losses = state["gen_losses"]
         self.crit_losses = state["crit_losses"]
