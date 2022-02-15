@@ -39,6 +39,7 @@ trainer = Trainer(generator=gen,
                   critic=critic, 
                   optim_gen=opt_gen, 
                   optim_critic=opt_critic, 
+                  use_cuda=True
                   )
 
 trainer.train(dataloader, epochs=8, log_step_interval=100, 
@@ -58,6 +59,7 @@ trainer.visualise_gen_images(num_images = 25)
 **Save state and load state for training later**
 
 Save state: `trainer.save_state(save_path)`
+
 Load state: `trainer.load_state(save_path)`
 
 ## Inspiration
